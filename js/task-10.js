@@ -10,19 +10,23 @@ const destroyBtnEl = document.querySelector("button[data-destroy]");
 const boxesEl = document.querySelector("#boxes");
 
 const createdDivs = [];
+//не змінюю початковий розмір на 30х30, оскільки вже на першому виконанні циклу до сторони додається +10
 let initialSize = 20;
 
 function createBoxes(amount) {
-  while (amount > 0) {
-    const newDiv = document.createElement("div");
-    newDiv.style.backgroundColor = `${getRandomHexColor()}`;
-    initialSize += 10;
-    newDiv.style.width = `${initialSize}px`;
-    newDiv.style.height = `${initialSize}px`;
-    createdDivs.push(newDiv);
-    amount -= 1;
-  }
-  boxesEl.append(...createdDivs);
+  if (amount >= Number(inputEl.min) && amount <= Number(inputEl.max)) {
+    while (amount > 0) {
+      const newDiv = document.createElement("div");
+      newDiv.style.backgroundColor = `${getRandomHexColor()}`;
+      initialSize += 10;
+      newDiv.style.width = `${initialSize}px`;
+      newDiv.style.height = `${initialSize}px`;
+      createdDivs.push(newDiv);
+      amount -= 1;
+    }
+    initialSize = 20;
+    boxesEl.append(...createdDivs);
+  } else alert(`The input is not valid`);
 }
 
 function destroyBoxes(event) {
@@ -35,3 +39,8 @@ createBtnEl.addEventListener("click", function () {
 });
 
 destroyBtnEl.addEventListener("click", destroyBoxes);
+
+// ==========================
+// Fix log:
+// - adding input validation (vs input min & max)
+// - resetting initialSize back to default in the end of the function, so the new collection of elements starts with the default size again;

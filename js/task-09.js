@@ -11,6 +11,12 @@ const colorValueEl = document.querySelector(".color");
 colorBtnEl.addEventListener("click", onColorBtnClick);
 
 function onColorBtnClick(event) {
-  bodyEl.style.backgroundColor = `${getRandomHexColor()}`;
-  colorValueEl.textContent = getRandomHexColor();
+  let randomColor = getRandomHexColor();
+  bodyEl.style.backgroundColor = `${randomColor}`;
+  colorValueEl.textContent = randomColor;
 }
+
+//=============================
+// Fix log:
+// - creating a new variable for storing the result of getRandomHexColor execution;
+//
